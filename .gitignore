@@ -1,0 +1,64 @@
+# Compiled class file
+*.class
+
+# JAVAC log files
+*.log
+
+# BlueJ files
+*.blk
+
+# Mobile Builder files
+*.iml
+
+# Virtual Machine Patcher
+*.patch
+
+# Eclipse
+.settings/
+*.project
+*.classpath
+
+# Intellij IDEA
+.idea/
+*.iws
+*.iml
+
+# NetBeans
+nbproject/private/
+build/
+ nbbuild/
+ dist/
+ nbaidat/
+ 
+# Maven
+target/
+ 
+# Gradle
+.gradle/
+build/
+ 
+# SAP Java Cloud
+.settings/
+ 
+# OS OS X
+.DS_Store
+.AppleDigitalSignature
+.AppleDouble
+.CFUserTextEncoding
+ 
+# Thymeleaf cache
+*.tmp
+ 
+# MySQL
+*.err
+ 
+# Node (frontend)
+node_modules/
+package-lock.json
+npm-debug.log*
+ 
+# IDE
+.vscode/
+*.swp
+*.swo
+*~

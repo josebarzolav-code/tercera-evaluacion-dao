@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: lector-service
+  profiles:
+    active: dev

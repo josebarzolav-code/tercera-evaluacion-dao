@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - Evaluación 03</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ================= CABECERA ================= -->
+    <header class="cabecera">
+        <div class="cabecera-contenido">
+            <h1>Sistema de Biblioteca</h1>
+            <p>Evaluación 03 &bull; Laboratorio 03 &bull; Microservicios &bull; <strong>José Manuel Barzola Veliz</strong></p>
+        </div>
+    </header>
+
+    <!-- ================= NAVEGACIÓN POR PESTAÑAS ================= -->
+    <nav class="pestanas">
+        <button class="pestana activa" data-pestana="libros">Libros <span class="puerto">:8081</span></button>
+        <button class="pestana" data-pestana="lectores">Lectores <span class="puerto">:8082</span></button>
+        <button class="pestana" data-pestana="prestamos">Préstamos <span class="puerto">:8083</span></button>
+    </nav>
+
+    <main>
+
+        <!-- ================= PESTAÑA: LIBROS ================= -->
+        <section class="contenido activo" id="panel-libros">
+            <div class="tarjeta">
+                <div class="tarjeta-cabecera">
+                    <h2 id="titulo-form-libro">Registrar libro</h2>
+                    <button class="btn btn-secundario" id="btn-nuevo-libro">+ Nuevo</button>
+                </div>
+                <form id="form-libro" class="formulario">
+                    <input type="hidden" id="libro-id">
+                    <div class="campo">
+                        <label for="libro-isbn">ISBN *</label>
+                        <input type="text" id="libro-isbn" placeholder="978-84-376-0494-7" required>
+                    </div>
+                    <div class="campo">
+                        <label for="libro-titulo">Título *</label>
+                        <input type="text" id="libro-titulo" placeholder="Cien años de soledad" required>
+                    </div>
+                    <div class="campo">
+                        <label for="libro-autor">Autor *</label>
+                        <input type="text" id="libro-autor" placeholder="Gabriel García Márquez" required>
+                    </div>
+                    <div class="campo">
+                        <label for="libro-stock">Stock *</label>
+                        <input type="number" id="libro-stock" min="0" placeholder="5" required>
+                    </div>
+                    <div class="acciones-form">
+                        <button type="submit" class="btn btn-primario">Guardar</button>
+                        <button type="button" class="btn btn-secundario" id="btn-cancelar-libro">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tarjeta">
+                <div class="tarjeta-cabecera">
+                    <h2>Catálogo de libros</h2>
+                    <span class="contador" id="contador-libros">0 registros</span>
+                </div>
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th><th>ISBN</th><th>Título</th><th>Autor</th>
+                                <th>Stock</th><th>Estado</th><th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-libros"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PESTAÑA: LECTORES ================= -->
+        <section class="contenido" id="panel-lectores">
+            <div class="tarjeta">
+                <div class="tarjeta-cabecera">
+                    <h2 id="titulo-form-lector">Registrar lector</h2>
+                    <button class="btn btn-secundario" id="btn-nuevo-lector">+ Nuevo</button>
+                </div>
+                <form id="form-lector" class="formulario">
+                    <input type="hidden" id="lector-id">
+                    <div class="campo">
+                        <label for="lector-documento">Documento *</label>
+                        <input type="text" id="lector-documento" placeholder="72345678" required>
+                    </div>
+                    <div class="campo">
+                        <label for="lector-nombres">Nombres *</label>
+                        <input type="text" id="lector-nombres" placeholder="Juan Carlos" required>
+                    </div>
+                    <div class="campo">
+                        <label for="lector-apellidos">Apellidos *</label>
+                        <input type="text" id="lector-apellidos" placeholder="Pérez López" required>
+                    </div>
+                    <div class="campo">
+                        <label for="lector-correo">Correo *</label>
+                        <input type="email" id="lector-correo" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    <div class="campo">
+                        <label for="lector-telefono">Teléfono</label>
+                        <input type="text" id="lector-telefono" placeholder="987654321">
+                    </div>
+                    <div class="acciones-form">
+                        <button type="submit" class="btn btn-primario">Guardar</button>
+                        <button type="button" class="btn btn-secundario" id="btn-cancelar-lector">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tarjeta">
+                <div class="tarjeta-cabecera">
+                    <h2>Lectores registrados</h2>
+                    <span class="contador" id="contador-lectores">0 registros</span>
+                </div>
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th><th>Documento</th><th>Nombres</th><th>Apellidos</th>
+                                <th>Correo</th><th>Teléfono</th><th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-lectores"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PESTAÑA: PRÉSTAMOS ================= -->
+        <section class="contenido" id="panel-prestamos">
+            <div class="tarjeta">
+                <div class="tarjeta-cabecera">
+                    <h2>Registrar préstamo</h2>
+                </div>
+                <form id="form-prestamo" class="formulario">
+                    <div class="campo">
+                        <label for="prestamo-lector">ID Lector *</label>
+                        <input type="number" id="prestamo-lector" min="1" list="lista-lectores" required>
+                        <datalist id="lista-lectores"></datalist>
+                    </div>
+                    <div class="campo">
+                        <label for="prestamo-libro">ID Libro *</label>
+                        <input type="number" id="prestamo-libro" min="1" list="lista-libros" required>
+                        <datalist id="lista-libros"></datalist>
+                    </div>
+                    <div class="campo">
+                        <label for="prestamo-fecha">Fecha de préstamo *</label>
+                        <input type="date" id="prestamo-fecha" required>
+                    </div>
+                    <div class="campo">
+                        <label for="prestamo-limite">Fecha límite *</label>
+                        <input type="date" id="prestamo-limite" required>
+                    </div>
+                    <div class="acciones-form">
+                        <button type="submit" class="btn btn-primario">Registrar</button>
+                        <button type="button" class="btn btn-secundario" id="btn-cancelar-prestamo">Limpiar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tarjeta">
+                <div class="tarjeta-cabecera">
+                    <h2>Préstamos registrados</h2>
+                    <div class="filtros">
+                        <select id="filtro-estado">
+                            <option value="">Todos los estados</option>
+                            <option value="ACTIVO">ACTIVO</option>
+                            <option value="DEVUELTO">DEVUELTO</option>
+                            <option value="VENCIDO">VENCIDO</option>
+                        </select>
+                        <span class="contador" id="contador-prestamos">0 registros</span>
+                    </div>
+                </div>
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th><th>ID Lector</th><th>ID Libro</th>
+                                <th>Fecha préstamo</th><th>Fecha límite</th>
+                                <th>Estado</th><th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-prestamos"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= NOTIFICACIONES ================= -->
+    <div id="notificacion" class="notificacion"></div>
+
+    <footer class="pie">
+        <p>Microservicios: <code>libro-service:8081</code> &bull; <code>lector-service:8082</code> &bull; <code>prestamo-service:8083</code>
+        | Cada servicio con su propia base de datos (bd_libro, bd_lector, bd_prestamo)</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
