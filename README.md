@@ -201,33 +201,39 @@ application-dev.yml    → Configuración de desarrollo
 application-prod.yml   → Configuración de producción
 ```
 
-## 8. Diagrama
+## 8. Diagrama de microservicios y bases de datos
 
+El cliente (Postman o el frontend) consume cada API REST por separado. Cada microservicio administra exclusivamente su propia base de datos:
+
+```mermaid
+flowchart TB
+    cliente["Cliente<br/>Postman / Frontend"]
+
+    subgraph libros["Microservicio de libros"]
+        apiLibros["libro-service<br/>Spring Boot · puerto 8081 (dev) / 9081 (prod)"]
+        dbLibros[("bd_libro<br/>Tabla: libros")]
+        apiLibros -->|JPA / MySQL| dbLibros
+    end
+
+    subgraph lectores["Microservicio de lectores"]
+        apiLectores["lector-service<br/>Spring Boot · puerto 8082 (dev) / 9082 (prod)"]
+        dbLectores[("bd_lector<br/>Tabla: lectores")]
+        apiLectores -->|JPA / MySQL| dbLectores
+    end
+
+    subgraph prestamos["Microservicio de préstamos"]
+        apiPrestamos["prestamo-service<br/>Spring Boot · puerto 8083 (dev) / 9083 (prod)"]
+        dbPrestamos[("bd_prestamo<br/>Tabla: prestamos")]
+        apiPrestamos -->|JPA / MySQL| dbPrestamos
+    end
+
+    cliente -->|HTTP / JSON| apiLibros
+    cliente -->|HTTP / JSON| apiLectores
+    cliente -->|HTTP / JSON| apiPrestamos
+
+    nota["El préstamo guarda idLector e idLibro como referencias.<br/>No hay claves foráneas ni tablas compartidas entre bases de datos."]
+    dbPrestamos -.-> nota
 ```
-                 ┌──────────────────────────────────────────┐
-                 │            CLIENTE (Postman)             │
-                 └───────┬──────────┬──────────┬────────────┘
-                         │          │          │
-              ┌──────────▼──┐ ┌─────▼──────┐ ┌─▼────────────┐
-   Puerto     │ libro-      │ │ lector-    │ │ prestamo-    │
-   8081/9081  │ service     │ │ service    │ │ service      │
-              └──────┬──────┘ └─────┬──────┘ └──┬─────┬─────┘
-                     │              │           │     │
-              ┌──────▼──────┐ ┌─────▼──────┐    │     │
-   BD propia  │  bd_libro   │ │ bd_lector  │    │     │
-              │  (libros)   │ │ (lectores) │    │     │
-              └─────────────┘ └────────────┘    │     │
-                                                │     │
-                        Referencias SOLO por ID │     │
-                        (idLector, idLibro) ────┘     │
-                                        ┌─────────────▼──┐
-                                        │  bd_prestamo   │
-                                        │  (prestamos)   │
-                                        └────────────────┘
-
-  ⚠ NO hay tablas compartidas: cada microservicio usa su propia BD.
-```
-
 ## 9. Evidencias (Postman)
 
 **Pendiente de completar al final:** guarda aquí capturas de Postman o exporta una colección. La carpeta todavía no contiene esas evidencias. Deben mostrar:
