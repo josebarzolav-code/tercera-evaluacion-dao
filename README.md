@@ -236,9 +236,9 @@ flowchart TB
 ```
 ## 9. Evidencias (Postman)
 
-**Pendiente de completar al final:** guarda aquí capturas de Postman o exporta una colección. La carpeta todavía no contiene esas evidencias. Deben mostrar:
-- Casos exitosos: GET, POST (201), PUT, DELETE (204), PATCH devolución.
-- Casos fallidos: 400 (datos inválidos), 404 (ID inexistente), 409 (duplicado).
+Las capturas de las pruebas realizadas en Postman se incluirán en el documento Word de la evaluación, que se entregará en Canvas. Deben mostrar al menos un caso exitoso y un caso de error, con la solicitud y su respuesta visibles.
+
+Como evidencia adicional, se recomienda incluir operaciones de consulta, registro y devolución, además de errores por datos inválidos o registros inexistentes.
 
 ## 10. Conclusiones
 
